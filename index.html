@@ -1,123 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Turnero · Sansoni</title>
-  <link rel="stylesheet" href="./css/styles.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ProyectoFinal+Sansoni — Simulador E-commerce</title>
+  <meta name="description" content="Simulador de ecommerce: catálogo, carrito, checkout simulado, localStorage y JSON.">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="app-header">
-    <h1>Turnero</h1>
-    <p class="subtitle">
-      Webapp para gestionar turnos. Crea, edita, cancela, marca como completado y filtra.
-      Los datos se guardan en <strong>LocalStorage</strong>.
-    </p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1>Sansoni Shop · Simulador</h1>
+      <div class="header-controls">
+        <input id="search" placeholder="Buscar producto..." aria-label="buscar" />
+        <select id="sort">
+          <option value="">Ordenar</option>
+          <option value="price-asc">Precio ↑</option>
+          <option value="price-desc">Precio ↓</option>
+          <option value="name-asc">Nombre A→Z</option>
+        </select>
+        <button id="btnCart" class="btn">Carrito (<span id="cartCount">0</span>)</button>
+      </div>
+    </div>
   </header>
 
-  <main class="container">
-    <!-- Panel de acciones -->
-    <section class="panel">
-      <div class="panel__group">
-        <button id="btnExport" class="btn btn--ghost">📤 Exportar JSON</button>
-        <label class="btn btn--ghost">
-          📥 Importar JSON
-          <input id="inputImport" type="file" accept="application/json" hidden />
-        </label>
-        <button id="btnClearAll" class="btn btn--danger">🗑️ Borrar todo</button>
+  <main class="container main-grid">
+    <aside class="filters card">
+      <h2>Filtros</h2>
+      <label>Categoria</label>
+      <select id="filterCategory">
+        <option value="">Todas</option>
+      </select>
+
+      <label>Rango de precio</label>
+      <div class="row">
+        <input id="minPrice" type="number" placeholder="Min" />
+        <input id="maxPrice" type="number" placeholder="Max" />
       </div>
-      <div id="toast" class="toast" aria-live="polite"></div>
-    </section>
 
-    <!-- Formulario de carga/edición -->
-    <section class="card">
-      <h2 id="formTitle">Nuevo turno</h2>
-      <form id="turnoForm" autocomplete="off">
-        <input type="hidden" id="turnoId" />
-        <div class="grid">
-          <div class="field">
-            <label for="nombre">Nombre y apellido<span class="req">*</span></label>
-            <input id="nombre" type="text" placeholder="Ej: Juan Pérez" required />
-          </div>
-          <div class="field">
-            <label for="telefono">Teléfono<span class="req">*</span></label>
-            <input id="telefono" type="tel" placeholder="Ej: 11-1234-5678" required />
-          </div>
-          <div class="field">
-            <label for="servicio">Servicio<span class="req">*</span></label>
-            <select id="servicio" required>
-              <option value="">Seleccioná…</option>
-              <option>Corte</option>
-              <option>Color</option>
-              <option>Manicura</option>
-              <option>Depilación</option>
-              <option>Consulta</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="fecha">Fecha<span class="req">*</span></label>
-            <input id="fecha" type="date" required />
-          </div>
-          <div class="field">
-            <label for="hora">Hora<span class="req">*</span></label>
-            <input id="hora" type="time" required />
-          </div>
-          <div class="field field--full">
-            <label for="notas">Notas</label>
-            <textarea id="notas" rows="2" placeholder="Observaciones…"></textarea>
-          </div>
-        </div>
-        <div class="actions">
-          <button type="submit" class="btn" id="btnSubmit">➕ Agendar</button>
-          <button type="button" class="btn btn--ghost" id="btnReset">↺ Limpiar</button>
-        </div>
-      </form>
-    </section>
-
-    <!-- Filtros -->
-    <section class="card">
-      <h2>Buscar / Filtrar</h2>
-      <div class="grid grid--filters">
-        <div class="field">
-          <label for="q">Buscar por nombre o teléfono</label>
-          <input id="q" type="search" placeholder="Ej: Ana / 11-55..." />
-        </div>
-        <div class="field">
-          <label for="fFecha">Fecha</label>
-          <input id="fFecha" type="date" />
-        </div>
-        <div class="field">
-          <label for="fEstado">Estado</label>
-          <select id="fEstado">
-            <option value="">Todos</option>
-            <option value="pendiente">Pendiente</option>
-            <option value="completado">Completado</option>
-            <option value="cancelado">Cancelado</option>
-          </select>
-        </div>
+      <label>Preexistencia</label>
+      <div class="row">
+        <button id="btnResetFilters" class="btn small">Reset</button>
+        <button id="btnApplyFilters" class="btn small btn--ok">Aplicar</button>
       </div>
-    </section>
 
-    <!-- Estadísticas -->
-    <section class="stats">
-      <div class="stat"><span id="statTotal">0</span><small>Total</small></div>
-      <div class="stat"><span id="statPend">0</span><small>Pendientes</small></div>
-      <div class="stat"><span id="statComp">0</span><small>Completados</small></div>
-      <div class="stat"><span id="statCanc">0</span><small>Cancelados</small></div>
-    </section>
+      <hr />
+      <h3>Datos del proyecto</h3>
+      <p class="muted">Entrega final - Simulador E-commerce. Datos cargados desde <code>data/products.json</code>. Todo sincroniza con <code>localStorage</code>.</p>
+    </aside>
 
-    <!-- Listado -->
-    <section class="card">
-      <h2>Turnos</h2>
-      <div id="emptyState" class="empty">Sin turnos aún. Cargá el primero 👇</div>
-      <ul id="turnoList" class="list"></ul>
+    <section class="catalog card">
+      <h2>Catálogo</h2>
+      <div id="catalogGrid" class="grid"></div>
+      <div id="emptyCatalog" class="muted" style="display:none">No se encontraron productos.</div>
     </section>
   </main>
 
-  <footer class="app-footer">
-    <small>Entregable 2 · Sansoni — DOM + Eventos + LocalStorage</small>
+  <!-- carrito / checkout modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button id="modalClose" class="modal-close">✖</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>ProyectoFinal+Sansoni — Simulador interactivo en JavaScript</small>
+    </div>
   </footer>
 
-  <script src="./js/app.js" defer></script>
+  <script src="app.js" type="module"></script>
 </body>
 </html>

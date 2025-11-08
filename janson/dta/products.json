@@ -1,0 +1,56 @@
+[
+  {
+    "id": "p-001",
+    "title": "Camiseta Classic",
+    "category": "Ropa",
+    "price": 2500,
+    "stock": 10,
+    "img": "https://picsum.photos/seed/cam1/400/300",
+    "desc": "Camiseta de algodón, cómoda y resistente."
+  },
+  {
+    "id": "p-002",
+    "title": "Zapatillas Runner",
+    "category": "Calzado",
+    "price": 12000,
+    "stock": 6,
+    "img": "https://picsum.photos/seed/zap1/400/300",
+    "desc": "Zapatillas para entrenamiento y uso diario."
+  },
+  {
+    "id": "p-003",
+    "title": "Mancuerna 10kg",
+    "category": "Fitness",
+    "price": 8000,
+    "stock": 3,
+    "img": "https://picsum.photos/seed/man1/400/300",
+    "desc": "Mancuerna hexagonal, recubierta en goma."
+  },
+  {
+    "id": "p-004",
+    "title": "Auriculares Wireless",
+    "category": "Electronica",
+    "price": 6500,
+    "stock": 8,
+    "img": "https://picsum.photos/seed/aur1/400/300",
+    "desc": "Bluetooth 5.2, cancelación de ruido."
+  },
+  {
+    "id": "p-005",
+    "title": "Short Deportivo",
+    "category": "Ropa",
+    "price": 3200,
+    "stock": 12,
+    "img": "https://picsum.photos/seed/short1/400/300",
+    "desc": "Short liviano para entrenamiento."
+  },
+  {
+    "id": "p-006",
+    "title": "Bolsa de Deporte",
+    "category": "Accesorios",
+    "price": 4200,
+    "stock": 4,
+    "img": "https://picsum.photos/seed/bolsa1/400/300",
+    "desc": "Bolsa con compartimentos impermeables."
+  }
+]
